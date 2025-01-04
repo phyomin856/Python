@@ -32,3 +32,8 @@ print(data)
 list = [4,2,6,8,10,11,18,29,40]
 list.reverse()
 print(f"After using reverse : {list}")
+
+####### Nested List ########
+list = [1,2,3,4,5,[6,7,8,9]]
+print(list[5])
+print(list[5][2])
