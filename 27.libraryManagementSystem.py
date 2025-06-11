@@ -8,22 +8,23 @@
 # 4. Delete Book
 # 5. Exit
 def view_books():
-    for index,book in enumerate(books):
-        print(f"{index + 1} : {book}")
+    print(f"Book Id  Name \t \t Author \t Pages" )
+    for book in books:
+        print(f"{book['id']} \t {book['Title']} \t {book['Author']} \t {book['Pages']}")
 
 def find_books():
     book_name = input("Enter book name : ")
     for book in books:
-        if book_name == book:
+        if book == book_name:
             print(f"{book_name} was found at index {books.index(book_name)}")
             found = True
             break
-        if not found:
+    if not found:
             print("This book doesn't exist")
 
 def add_books():
-        add_book = input("Add book : ")
-        books.append(add_book)
+        new_book = input("Add book : ")
+        books.append(new_book)
         print("Added book successfully")
 
 def delete_books():
@@ -32,7 +33,23 @@ def delete_books():
         index = int(input("Enter book index: ")) - 1
         books.pop(index)
         print("Book deleted successful")
-books = ['The Lion King','Python Programming','The lost of the Ring','Harry Potter','Kingdom']
+books = [
+    {'id': 'Book 1',
+     'Title': 'Python Book',
+     'Author': 'Kyaw Kyaw',
+     'Pages' : 222
+     },
+     {'id': 'Book 2',
+     'Title': 'Java Book',
+     'Author': 'Aung Aung',
+     'Pages' : 250
+     },
+     {'id': 'Book 3',
+     'Title': 'Jango Book',
+     'Author': 'Phyo Phyo',
+     'Pages' : 232
+     }
+]
 running = True
 found = False
 #welcome
@@ -53,7 +70,7 @@ while running:
     elif opt == 2:
         find_books()
     elif opt == 3:
-       add_books()
+      add_books()
     elif opt == 4:
         delete_books()
     elif opt == 5:

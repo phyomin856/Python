@@ -24,3 +24,4 @@ print(student_list)
 
 #Popitem
 print(student_list.popitem())
+print(student_list)
