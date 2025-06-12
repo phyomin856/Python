@@ -13,45 +13,74 @@ def view_books():
         print(f"{book['id']} \t {book['Title']} \t {book['Author']} \t {book['Pages']}")
 
 def find_books():
-    book_name = input("Enter book name : ")
+    found = False
+    book_id = input("Enter book id : ")
     for book in books:
-        if book == book_name:
-            print(f"{book_name} was found at index {books.index(book_name)}")
+        if book['id'] == book_id:
+            print(f"Book ID : {book['id']}")
+            print(f"Title : {book['Title']}")
+            print(f"Author : {book['Author']}")
+            print(f"Pages : {book['Pages']}")
             found = True
             break
     if not found:
             print("This book doesn't exist")
 
 def add_books():
-        new_book = input("Add book : ")
-        books.append(new_book)
-        print("Added book successfully")
+       last_book = books[-1]
+       last_book_id = last_book['id']
+       prefix_text = last_book_id[0:4]
+       real_id = int(last_book_id[4:])
+       actual_id = real_id + 1
+       id = prefix_text + str(actual_id)
+       title = input("Enter book title : ")
+       author = input("Enter book author : ")
+       pages  = input("Enter book pages : ")
+       new_book = {
+            'id': id,
+            'Title':title ,
+            'Author':author ,
+            'Pages' : pages
+        }
+       books.append(new_book)
+       
+       
 
 def delete_books():
-    for index,book in enumerate(books):
-        print(f"{index + 1} : {book}")
-        index = int(input("Enter book index: ")) - 1
-        books.pop(index)
-        print("Book deleted successful")
+    removed = False
+    view_books()
+    id = input("Enter Book id : ")
+    for i in range(len(books)):
+        if id == books[i]['id']:
+            books.pop(i)
+            removed = True
+            break
+
+    if removed == True:
+        print("Book removed successful")
+    else:
+        print("Something's wrong!")
+
+
 books = [
-    {'id': 'Book 1',
+    {'id': 'Book1',
      'Title': 'Python Book',
      'Author': 'Kyaw Kyaw',
      'Pages' : 222
      },
-     {'id': 'Book 2',
+     {'id': 'Book2',
      'Title': 'Java Book',
      'Author': 'Aung Aung',
      'Pages' : 250
      },
-     {'id': 'Book 3',
+     {'id': 'Book3',
      'Title': 'Jango Book',
      'Author': 'Phyo Phyo',
      'Pages' : 232
      }
 ]
 running = True
-found = False
+
 #welcome
 print("====================")
 print("Welcome to our library management system")
