@@ -8,59 +8,78 @@
 # 4. Delete Book
 # 5. Exit
 def view_books():
-    print(f"Book Id  Name \t \t Author \t Pages" )
+    # print(f"Book Id  Name \t \t Author \t Pages" )
+    print(f"{'Book ID':<20}{'Title ':<15}{'Author':<15}{'Pages':<10}")
     for book in books:
-        print(f"{book['id']} \t {book['Title']} \t {book['Author']} \t {book['Pages']}")
+        print(f"{book['id']:<20}{book['Title']:<15}{book['Author']:<15}{book['Pages']:<10}")
 
 def find_books():
-    found = False
-    book_id = input("Enter book id : ")
+    book_id = input("Enter book id : ").strip()
     for book in books:
         if book['id'] == book_id:
             print(f"Book ID : {book['id']}")
             print(f"Title : {book['Title']}")
             print(f"Author : {book['Author']}")
             print(f"Pages : {book['Pages']}")
-            found = True
-            break
-    if not found:
-            print("This book doesn't exist")
+            return
+    print('This book does not exist in the library')
 
 def add_books():
-       last_book = books[-1]
-       last_book_id = last_book['id']
-       prefix_text = last_book_id[0:4]
-       real_id = int(last_book_id[4:])
-       actual_id = real_id + 1
-       id = prefix_text + str(actual_id)
+       new_id = f"Book{len(books)+1}"
        title = input("Enter book title : ")
        author = input("Enter book author : ")
        pages  = input("Enter book pages : ")
        new_book = {
-            'id': id,
+            'id': new_id,
             'Title':title ,
             'Author':author ,
             'Pages' : pages
         }
        books.append(new_book)
+       print('\nBook added successfully')
        
        
 
 def delete_books():
     removed = False
     view_books()
-    id = input("Enter Book id : ")
-    for i in range(len(books)):
-        if id == books[i]['id']:
-            books.pop(i)
-            removed = True
-            break
+    book_id = input("Enter Book id : ").strip()
+    for book in books:
+        if book['id'] == book_id:
+            books.remove(book)
+            print('Book removed successfully')
+            return
+    print('This book does not exist in the library!')
+   
 
-    if removed == True:
-        print("Book removed successful")
-    else:
-        print("Something's wrong!")
+options = {
+    1:view_books,
+    2:find_books,
+    3:add_books,
+    4:delete_books
+}
+def main():
+    #welcome
+    print("====================")
+    print("Welcome to our library management system")
+    print("1. Viewing Books")
+    print("2. Find Book")
+    print("3. Add Book")
+    print("4. Delete Book")
+    print("5. Exit ")
+    print("====================")
 
+
+    while True:
+        opt = int(input('\n=> Which operation do u wanna do (1---5)?:'))
+        if 1<= opt <=5:
+            if opt == 5:
+                print('Thanks for using our Library Management System')
+                break
+            options[opt]()
+        else:
+            print('Invalid Operation. Please enter number between 1 and 5')
+        
 
 books = [
     {'id': 'Book1',
@@ -79,33 +98,7 @@ books = [
      'Pages' : 232
      }
 ]
-running = True
-
-#welcome
-print("====================")
-print("Welcome to our library management system")
-print("1. Viewing Books")
-print("2. Find Book")
-print("3. Add Book")
-print("4. Delete Book")
-print("5. Exit ")
-print("====================")
+main()
 
 
-while running:
-    opt = int(input('\n=> Which operation do u wanna do (1---5)?:'))
-    if opt == 1:
-        view_books()
-    elif opt == 2:
-        find_books()
-    elif opt == 3:
-      add_books()
-    elif opt == 4:
-        delete_books()
-    elif opt == 5:
-        running = False
-        print("Thanks for using our Library Managemnent System")
-    
-    else:
-        print("Invaid")
 
