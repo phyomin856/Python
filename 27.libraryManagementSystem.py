@@ -25,7 +25,9 @@ def find_books():
     print('This book does not exist in the library')
 
 def add_books():
-       new_id = f"Book{len(books)+1}"
+       global book_counter
+       new_id = f"Book{book_counter}"
+       book_counter += 1
        title = input("Enter book title : ")
        author = input("Enter book author : ")
        pages  = input("Enter book pages : ")
@@ -98,6 +100,7 @@ books = [
      'Pages' : 232
      }
 ]
+book_counter = len(books) + 1
 main()
 
 
